@@ -3,6 +3,8 @@ find_package(Threads REQUIRED)
 # Enable ExternalProject CMake module
 include(ExternalProject)
 
+SET(CMAKE_BUILD_TYPE Debug)
+
 if (MSVC)
   set(LibSuffix ".lib")
 else()
@@ -62,13 +64,18 @@ set_target_properties(libgmock PROPERTIES
 # I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
 include_directories("${source_dir}/include")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -W -Wextra -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0") # debug, no optimisation
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage") # enabling coverage
 
-SET(TEST_SOURCES TestsMain.cpp TestMyClass.cpp)
+SET(TEST_SOURCES TestsMain.cpp TestMyClass.cpp
+                 ${CMAKE_CURRENT_SOURCE_DIR}/../lib/MyClass.cpp)
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../lib/)
 
 ADD_EXECUTABLE(Tests ${TEST_SOURCES})
 
 TARGET_LINK_LIBRARIES(Tests
-    libMyClass
     libgtest
     libgmock
 )
