@@ -5,19 +5,6 @@ sudo: required
 before-install:
   - sudo apt-get -qq update
 
-install:
-  - sudo apt-get install -y libgtest-dev
-  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
-  - sudo apt-get -qq install google-mock
-  - "cd /usr/src/gmock && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
-  # Latest LCOV
-  - cd ${TRAVIS_BUILD_DIR}
-  - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
-  - tar xf lcov_1.11.orig.tar.gz
-  - sudo make -C lcov-1.11/ install
-  - gem install coveralls-lcov
-  - lcov --version
-
 matrix:
   include:
     - compiler: gcc
@@ -44,6 +31,26 @@ matrix:
             - cmake
             - cmake-data
       env: COMPILER=clang++-3.7
+
+install:
+  - sudo apt-get install -y libgtest-dev
+  - cd /usr/src/gtest
+  - sudo cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
+  - sudo cmake --build -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
+  - "sudo mv libg* /usr/local/lib/ ; cd -"
+
+  - sudo apt-get -qq install google-mock
+  - cd /usr/src/gmock
+  - sudo cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
+  - sudo cmake --build -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
+  - "sudo mv libg* /usr/local/lib/ ; cd -"
+  # Latest LCOV
+  - cd ${TRAVIS_BUILD_DIR}
+  - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
+  - tar xf lcov_1.11.orig.tar.gz
+  - sudo make -C lcov-1.11/ install
+  - gem install coveralls-lcov
+  - lcov --version
 
 before-script:
   - cd ${TRAVIS_BUILD_DIR}
