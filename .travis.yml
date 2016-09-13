@@ -1,14 +1,6 @@
 language: cpp
 sudo: required
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - george-edison55-precise-backports
-    packages:
-      - cmake
-      - cmake-data
 
 before-install:
   - sudo apt-get -qq update
@@ -28,6 +20,15 @@ install:
 
 matrix:
   include:
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+          - george-edison55-precise-backports
+        packages:
+          - cmake
+          - cmake-data
+
     - compiler: gcc
       addons:
         apt:
