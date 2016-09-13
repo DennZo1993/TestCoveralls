@@ -20,29 +20,29 @@ install:
 
 matrix:
   include:
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-          - george-edison55-precise-backports
-        packages:
-          - cmake
-          - cmake-data
-
     - compiler: gcc
       addons:
         apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - george-edison55-precise-backports
           packages:
             - g++-4.9
+            - cmake
+            - cmake-data
       env: COMPILER=g++-4.9
 
     - compiler: clang
       addons:
         apt:
           sources:
+            - ubuntu-toolchain-r-test
+            - george-edison55-precise-backports
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
+            - cmake
+            - cmake-data
       env: COMPILER=clang++-3.7
 
 before-script:
