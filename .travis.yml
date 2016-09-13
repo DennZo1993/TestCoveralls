@@ -40,6 +40,7 @@ install:
   - "sudo mv libg* /usr/local/lib/ ; cd -"
 
   - sudo apt-get -qq install google-mock
+  - ls -la /usr/src/
   - cd /usr/src/gmock
   - sudo cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
   - sudo cmake --build .
