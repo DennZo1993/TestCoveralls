@@ -33,12 +33,11 @@ matrix:
       env: COMPILER=clang++-3.7
 
 install:
-  - sudo apt-get install -y libgtest-dev
-  - cd /usr/src/gtest
-  - sudo cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
-  - sudo cmake --build .
-  - "sudo mv libg* /usr/local/lib/ ; cd -"
-
+  #- sudo apt-get install -y libgtest-dev
+  #- cd /usr/src/gtest
+  #- sudo cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ .
+  #- sudo cmake --build .
+  #- "sudo mv libg* /usr/local/lib/ ; cd -"
   - sudo apt-get -qq install google-mock
   - ls -la /usr/src/
   - cd /usr/src/gmock
